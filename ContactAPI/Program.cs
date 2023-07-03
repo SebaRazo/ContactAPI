@@ -1,7 +1,22 @@
+using AutoMapper;
 using ContactAPI.Data;
+using ContactAPI.Profiles;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: "AllowOrigin",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+        });
+});
 
 // Add services to the container.
 
@@ -14,6 +29,13 @@ builder.Services.AddDbContext<AgendaContext>(dbContextOptions => dbContextOption
     builder.Configuration["ConnectionStrings:ContactAPIDBConnectionString"]));
 
 
+var config = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new ContactProfile());
+    cfg.AddProfile(new UserProfile());
+});
+var mapper = config.CreateMapper();
+
 
 var app = builder.Build();
 
@@ -25,6 +47,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowOrigin");
 
 app.UseAuthorization();
 

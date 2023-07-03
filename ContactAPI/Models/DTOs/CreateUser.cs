@@ -1,7 +1,6 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ContactAPI.Models
+namespace ContactAPI.Models.DTOs
 {
     public class CreateUser
     {
@@ -12,6 +11,6 @@ namespace ContactAPI.Models
         public string Email { get; set; }
         [Required]
         public string UserName { get; set; }
-    
-}
+
+    }
 }

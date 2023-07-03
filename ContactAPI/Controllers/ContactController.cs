@@ -1,6 +1,17 @@
-﻿namespace ContactAPI.Controllers
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ContactAPI.Controllers
 {
-    public class ContactController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ContactController : ControllerBase
     {
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+
+            return Ok();
+        }
     }
 }
